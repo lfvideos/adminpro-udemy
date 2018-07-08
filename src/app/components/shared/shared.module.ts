@@ -7,8 +7,9 @@ import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 import { IncrementadorComponent } from './custom/incrementador/incrementador.component';
 
 import { ChartsModule } from 'ng2-charts';
+import { RouterModule } from '@angular/router';
 
-import { FormsModule } from '../../../../node_modules/@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { GraficodonaComponent } from './custom/graficodona/graficodona.component';
 
 @NgModule({
@@ -23,7 +24,8 @@ import { GraficodonaComponent } from './custom/graficodona/graficodona.component
     imports: [ 
         CommonModule,
         FormsModule,
-        ChartsModule
+        ChartsModule,
+        RouterModule
     ],
     exports: [
         HeaderComponent,
