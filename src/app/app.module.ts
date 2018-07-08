@@ -24,7 +24,6 @@ import { RegisterComponent } from './components/pages/login/register.component';
     BrowserModule,
     PagesModule,
     APP_ROUTES,
-    
 
   ],
   providers: [],
