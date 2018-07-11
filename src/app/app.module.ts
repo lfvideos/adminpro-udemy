@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 //MODULES
 import { PagesModule } from './components/pages/pages.module';
-import { FormsModule } from '../../node_modules/@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //ROUTES
 import { APP_ROUTES } from './app.routes';
@@ -31,7 +31,8 @@ import { ServiceModule } from './services/service.module';
     PagesModule,
     APP_ROUTES,
     ServiceModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
 
   ],
   providers: [],
