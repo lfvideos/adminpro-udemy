@@ -3,7 +3,7 @@ import { FormsModule } from "@angular/forms";
 import { CommonModule } from '@angular/common';
 
 //MODULE
-
+import { PipesModule } from '../../pipes/pipes.module';
 
 //ROUTES
 import { PAGES_ROUTES } from './pages.routes';
@@ -17,6 +17,9 @@ import { SharedModule } from '../shared/shared.module';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { RestindexComponent } from './restindex/restindex.component';
+import { ProfileComponent } from './profile/profile.component';
+
 
 
 
@@ -30,12 +33,15 @@ import { RxjsComponent } from './rxjs/rxjs.component';
         AccountSettingsComponent,
         PromesasComponent,
         RxjsComponent,
+        RestindexComponent,
+        ProfileComponent,
     ],
     imports: [ 
         CommonModule,
         SharedModule,
         PAGES_ROUTES,
         FormsModule,
+        PipesModule
     ],
     exports: [
         PagesComponent,

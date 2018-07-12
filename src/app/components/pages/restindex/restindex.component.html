@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card" style="background:lightgray" *ngFor="let metodo of methods, let i = index">
+            <div class="card-header">
+                <div class="row">
+                    <button data-toggle="collapse" [attr.data-target]="'#metodo' + i " type="button" class="btn btn-primary btn-md" [ngClass]="{'btn-danger':metodo.method == 'DELETE' , 'btn-success':metodo.method == 'GET' ,'btn-warning':metodo.method == 'PUT' , 'btn-info':metodo.method == 'POST' }"
+                        style="font-weight: bold"><span>{{metodo.method}}</span></button>
+                    <h2>{{metodo.name}}</h2>
+                </div>
+
+            </div>
+            <div class="card-body collapse" [id]="'metodo' + i ">
+                <div class="row ">
+                    <label class="font-weight-bold ">Descripcion:</label> {{metodo.description}}
+                </div>
+                <div class="row ">
+                    <div class="col ">
+                        <label class="font-weight-bold ">URL:</label>
+                        <div class=" ">{{metodo.url}}</div>
+                    </div>
+
+                </div>
+                <div class="row ">
+                    <label class="font-weight-bold ">Payload:</label> {{metodo.payload}} {{metodo.multipart | json}}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

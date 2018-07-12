@@ -16,7 +16,6 @@ import { RegisterComponent } from './components/pages/login/register.component';
 
 //SERVICES
 import { ServiceModule } from './services/service.module';
-//import { SettingsService } from './services/service.index';
 
 
 
@@ -24,7 +23,7 @@ import { ServiceModule } from './services/service.module';
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

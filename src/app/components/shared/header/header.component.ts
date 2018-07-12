@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from 'selenium-webdriver/http';
 import { UsuarioService } from '../../../services/service.index';
+import { Usuario } from '../../../models/usuario.model';
 
 
 @Component({
@@ -11,10 +12,12 @@ import { UsuarioService } from '../../../services/service.index';
 })
 export class HeaderComponent implements OnInit {
 
+  usuario: Usuario;
+
   constructor(public usuarioservice: UsuarioService) { }
 
   ngOnInit() {
-    
+    this.usuario = this.usuarioservice.usuario;
     
   }
 

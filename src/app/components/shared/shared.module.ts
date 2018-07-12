@@ -8,9 +8,11 @@ import { IncrementadorComponent } from './custom/incrementador/incrementador.com
 
 import { ChartsModule } from 'ng2-charts';
 import { RouterModule } from '@angular/router';
+import { PipesModule } from '../../pipes/pipes.module';
 
 import { FormsModule } from '@angular/forms';
 import { GraficodonaComponent } from './custom/graficodona/graficodona.component';
+
 
 @NgModule({
     declarations: [
@@ -25,7 +27,8 @@ import { GraficodonaComponent } from './custom/graficodona/graficodona.component
         CommonModule,
         FormsModule,
         ChartsModule,
-        RouterModule
+        RouterModule,
+        PipesModule
     ],
     exports: [
         HeaderComponent,

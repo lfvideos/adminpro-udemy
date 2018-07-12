@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { URL_SERVICIOS } from '../../config/config';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { SubirArchivoService } from '../subir-archivo/subir-archivo.service';
 
 
 @Injectable({
@@ -14,12 +15,12 @@ export class UsuarioService {
   usuario: Usuario;
   token: string;
 
-  constructor(public http: HttpClient , public router:Router) { 
+  constructor(public http: HttpClient , public router:Router, private subirarchivoservice:SubirArchivoService) { 
     this.cargarStorage();
   }
 
   estaLogueado(){
-    return (this.token.length > 5) ? true: false;
+    return (this.token.length > 5 && this.token != "undefined") ? true: false;
   }
 
 
@@ -50,6 +51,7 @@ export class UsuarioService {
     localStorage.removeItem('usuario');
     localStorage.removeItem('id');
     this.router.navigate(['/login']);
+    swal('Atencion', `Sesion Cerrada`, 'warning' );
   }
 
   loginGoogle(token:string){
@@ -95,6 +97,31 @@ export class UsuarioService {
     }))
 
   }
+
+  actualizarUsuario(usuario:Usuario){
+    let url = URL_SERVICIOS + "/usuario/"+ usuario._id;
+    url+= "?token="+ this.token;
+
+    return this.http.put(url,usuario).pipe(map( (resp:any)=>{
+      this.guardarStorage(resp.usuario._id, this.token, resp.usuario);
+      swal('Exito!', `Usuario ${resp.usuario.nombre} actualizado correctamente`, 'success' );
+      return true;
+    }));
+
+  }
+
+  cambiarImagen( file: File , id:string){
+
+    this.subirarchivoservice.subirArchivo(file,'usuarios',id)
+    .subscribe((resp:any) =>{
+      console.log(resp);
+      this.usuario.img = resp.usuario.img;
+      this.guardarStorage(id, this.token , this.usuario);
+      swal('Exito!', `La imagen se actualizo correctamente`, 'success' );
+    });
+
+  }
+
 
 
 }
