@@ -13,6 +13,7 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 import { LoginGuardGuard } from '../../services/service.index';
 import { RestindexComponent } from './restindex/restindex.component';
 import { ProfileComponent } from './profile/profile.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
 
 const routes: Routes = [
     { 
@@ -27,6 +28,12 @@ const routes: Routes = [
             { path: 'promesas', component: PromesasComponent , data:{titulo:"Promesas"} },
             { path: 'rxjs', component: RxjsComponent , data:{titulo:"RxJs"} },
             { path: 'account-settings', component: AccountSettingsComponent , data:{titulo:"Ajustes del Tema"} },
+            
+            // Mantenimientos
+            { path: 'usuarios', component: UsuariosComponent , data:{titulo:"Mantenimiento de Usuarios"} },
+
+
+            //TEST
             { path: 'restindex', component: RestindexComponent , data:{titulo:"REST Index"} },
             { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
         ]

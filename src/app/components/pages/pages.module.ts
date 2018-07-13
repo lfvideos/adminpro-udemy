@@ -19,6 +19,8 @@ import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { RestindexComponent } from './restindex/restindex.component';
 import { ProfileComponent } from './profile/profile.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
+import { ModalUploadComponent } from '../shared/custom/modal-upload/modal-upload.component';
 
 
 
@@ -35,6 +37,8 @@ import { ProfileComponent } from './profile/profile.component';
         RxjsComponent,
         RestindexComponent,
         ProfileComponent,
+        UsuariosComponent,
+        ModalUploadComponent
     ],
     imports: [ 
         CommonModule,

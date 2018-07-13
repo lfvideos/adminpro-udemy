@@ -16,18 +16,18 @@ export class RestindexComponent implements OnInit {
 
     this.getJSON().subscribe( (data:any)=>{
   
-      console.log("DATA", data)
+      //console.log("DATA", data)
 
       for(let project of data['projects']){
         this.projects.push({ name : project.name, id: project._referenceId});
       }
-      console.log("Proyectos",this.projects);
+      //console.log("Proyectos",this.projects);
 
       for(let request of data['requests']){
         let metodo: Methods = new Methods(request.name, request.description, request.headers, request.method, request.payload, request.url, request._referenceLegacyProject, request.multipart);
         this.methods.push(metodo);
       }
-      console.log("Requests",this.methods);
+      //console.log("Requests",this.methods);
     });
   }
 
