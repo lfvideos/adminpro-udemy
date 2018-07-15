@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Usuario } from '../../models/usuario.model';
 import { HttpClient } from '@angular/common/http';
 import { URL_SERVICIOS } from '../../config/config';
-import { map } from 'rxjs/operators';
+import { map , catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs/internal/observable/throwError'
 import { Router } from '@angular/router';
 import { SubirArchivoService } from '../subir-archivo/subir-archivo.service';
 import { SweetalertService } from '../shared/sweetalert.service';
@@ -15,6 +16,7 @@ export class UsuarioService {
 
   usuario: Usuario;
   token: string;
+  menu:any = [];
 
 
   constructor(public http: HttpClient , public router:Router, private subirarchivoservice:SubirArchivoService, private sa: SweetalertService) { 
@@ -30,28 +32,35 @@ export class UsuarioService {
     if(localStorage.getItem('token')){
       this.token = localStorage.getItem('token');
       this.usuario = JSON.parse(localStorage.getItem('usuario'));
+      this.menu = JSON.parse(localStorage.getItem('menu'));
+      
     }
     else{
       this.token = '';
       this.usuario = null;
+      this.menu = [];
     }
   }
 
-  guardarStorage(id:string, token:string , usuario:Usuario){
+  guardarStorage(id:string, token:string , usuario:Usuario , menu:any){
     localStorage.setItem('id', id);
     localStorage.setItem('token', token);
     localStorage.setItem('usuario', JSON.stringify(usuario));
+    localStorage.setItem('menu', JSON.stringify(menu));
 
     this.usuario = usuario;
     this.token = token;
+    this.menu = menu;
   }
 
   logout(){
     this.token = '';
     this.usuario = null;
+    this.menu = [];
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
     localStorage.removeItem('id');
+    localStorage.removeItem('menu');
     this.router.navigate(['/login']);
     this.sa.displayMixin('warning', `Sesion Cerrada`);
   }
@@ -60,7 +69,8 @@ export class UsuarioService {
     let url = URL_SERVICIOS + "/login/google"
 
     return this.http.post(url,{token}).pipe(map( (resp:any)=>{
-      this.guardarStorage(resp.id, resp.token, resp.usuario);
+      this.guardarStorage(resp.id, resp.token, resp.usuario, resp.menu);
+      //console.log(resp);
       this.sa.displayMixin('success', `Bienvenido ${resp.usuario.nombre}`);
       return true;
     }))
@@ -72,26 +82,29 @@ export class UsuarioService {
     
     let url = URL_SERVICIOS + "/login";
     
+    if(recuerdame){
+      localStorage.setItem('email', usuario.email);
+    }
+    else{
+      localStorage.removeItem('email');
+    }
+
     return this.http.post(url,usuario).pipe(map( (resp:any)=>{
       
-      this.guardarStorage(resp.id, resp.token, resp.usuario);
-
-      if(recuerdame){
-        localStorage.setItem('email', usuario.email);
-      }
-      else{
-        localStorage.removeItem('email');
-      }
+      this.guardarStorage(resp.id, resp.token, resp.usuario, resp.menu);
       this.sa.displayMixin('success', `Bienvenido ${resp.usuario.nombre}`);
       return true;
-    }))
+    }),catchError( err => {
+      //console.log( err.error.mensaje);
+      // return throwError(err);
+      this.sa.swal('Error en el login', err.error.mensaje, 'error');
+      return throwError(err.error.mensaje);
+    }));
 
   }
 
   crearUsuario(usuario:Usuario){
-    
     let url = URL_SERVICIOS + "/usuario"
-    
     return this.http.post(url,usuario).pipe(map( (resp:any)=>{
       this.sa.swal('Usuario Creado', `usuario.email`, 'success');
     }));
@@ -106,7 +119,7 @@ export class UsuarioService {
 
       if(resp.usuario._id === this.usuario._id){
         console.log("guardando en storage");
-        this.guardarStorage(resp.usuario._id, this.token, resp.usuario);
+        this.guardarStorage(resp.usuario._id, this.token, resp.usuario, this.menu);
       }
       
       this.sa.swal('Exito', `Usuario ${resp.usuario.nombre} actualizado correctamente`, 'success');
@@ -121,7 +134,7 @@ export class UsuarioService {
     .subscribe((resp:any) =>{
       console.log(resp);
       this.usuario.img = resp.usuario.img;
-      this.guardarStorage(id, this.token , this.usuario);
+      this.guardarStorage(id, this.token , this.usuario, this.menu);
       this.sa.swal('Exito', `La imagen se actualizo correctamente`, 'success');
     });
 

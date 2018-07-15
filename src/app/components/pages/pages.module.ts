@@ -25,6 +25,7 @@ import { HospitalComponent } from './hospital/hospital.component';
 import { MedicosComponent } from './medicos/medicos.component';
 import { PermisosComponent } from './permisos/permisos.component';
 import { MedicoComponent } from './medicos/medico.component';
+import { BusquedaComponent } from './busqueda/busqueda.component';
 
 
 
@@ -46,7 +47,8 @@ import { MedicoComponent } from './medicos/medico.component';
         HospitalComponent,
         MedicosComponent,
         MedicoComponent,
-        PermisosComponent
+        PermisosComponent,
+        BusquedaComponent
     ],
     imports: [ 
         CommonModule,

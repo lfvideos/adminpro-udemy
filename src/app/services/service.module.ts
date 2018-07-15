@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ModalUploadService } from '../components/shared/custom/modal-upload/modal-upload.service';
 import { HospitalService } from './hospital/hospital.service';
 import { MedicoService } from './medico/medico.service';
+import { AdminGuard } from './guards/admin.guard';
 
 
 
@@ -28,10 +29,12 @@ import { MedicoService } from './medico/medico.service';
     SharedService,
     UsuarioService,
     LoginGuardGuard,
+    AdminGuard,
     SubirArchivoService,
     ModalUploadService,
     HospitalService,
-    MedicoService
+    MedicoService,
+    AdminGuard
   ]
 })
 export class ServiceModule { }

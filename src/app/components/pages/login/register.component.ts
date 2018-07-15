@@ -64,22 +64,18 @@ export class RegisterComponent implements OnInit {
     if(this.forma.invalid){
       return;
     }
-
     if(!this.forma.value.condiciones){
-      //console.log("Debe aceptar las condiciones");
       this.sa.swal("Importante", "Debe de aceptar las condiciones", "warning");
       return;
     }
 
     let usuario = new Usuario(this.forma.value.nombre, this.forma.value.email, this.forma.value.password);
     this.usuarioService.crearUsuario(usuario).subscribe( (respuesta)=>{
-      console.log(respuesta);
       this.router.navigate(['/login']);
     }, (error)=>{
       this.sa.swal("Error", error.error.mensaje, "error");
       console.log(error);
     });
-
   }
 
 }
