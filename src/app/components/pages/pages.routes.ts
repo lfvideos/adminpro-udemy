@@ -14,6 +14,10 @@ import { LoginGuardGuard } from '../../services/service.index';
 import { RestindexComponent } from './restindex/restindex.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { HospitalComponent } from './hospital/hospital.component';
+import { MedicosComponent } from './medicos/medicos.component';
+import { MedicoComponent } from './medicos/medico.component';
+import { PermisosComponent } from './permisos/permisos.component';
 
 const routes: Routes = [
     { 
@@ -31,10 +35,17 @@ const routes: Routes = [
             
             // Mantenimientos
             { path: 'usuarios', component: UsuariosComponent , data:{titulo:"Mantenimiento de Usuarios"} },
+            { path: 'hospitales', component: HospitalComponent , data:{titulo:"Mantenimiento de Hospitales"} },
+            { path: 'medicos', component: MedicosComponent , data:{titulo:"Mantenimiento de Medicos"} },
+            { path: 'medico/:id', component: MedicoComponent , data:{titulo:"Actualizar Medico"} },
 
 
             //TEST
             { path: 'restindex', component: RestindexComponent , data:{titulo:"REST Index"} },
+            { path: 'permisos', component: PermisosComponent , data:{titulo:"Permisos"} },
+
+
+            //DEFAULT
             { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
         ]
      },

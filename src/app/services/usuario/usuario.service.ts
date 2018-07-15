@@ -5,6 +5,7 @@ import { URL_SERVICIOS } from '../../config/config';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { SubirArchivoService } from '../subir-archivo/subir-archivo.service';
+import { SweetalertService } from '../shared/sweetalert.service';
 
 
 @Injectable({
@@ -15,7 +16,8 @@ export class UsuarioService {
   usuario: Usuario;
   token: string;
 
-  constructor(public http: HttpClient , public router:Router, private subirarchivoservice:SubirArchivoService) { 
+
+  constructor(public http: HttpClient , public router:Router, private subirarchivoservice:SubirArchivoService, private sa: SweetalertService) { 
     this.cargarStorage();
   }
 
@@ -51,7 +53,7 @@ export class UsuarioService {
     localStorage.removeItem('usuario');
     localStorage.removeItem('id');
     this.router.navigate(['/login']);
-    swal('Atencion', `Sesion Cerrada`, 'warning' );
+    this.sa.displayMixin('warning', `Sesion Cerrada`);
   }
 
   loginGoogle(token:string){
@@ -59,7 +61,7 @@ export class UsuarioService {
 
     return this.http.post(url,{token}).pipe(map( (resp:any)=>{
       this.guardarStorage(resp.id, resp.token, resp.usuario);
-      swal('Hola!', `Bienvenido ${resp.usuario.nombre}`, 'success' );
+      this.sa.displayMixin('success', `Bienvenido ${resp.usuario.nombre}`);
       return true;
     }))
   }
@@ -68,10 +70,9 @@ export class UsuarioService {
 
   login(usuario:Usuario, recuerdame:boolean = false){
     
-    let url = URL_SERVICIOS + "/login"
+    let url = URL_SERVICIOS + "/login";
     
     return this.http.post(url,usuario).pipe(map( (resp:any)=>{
-      //swal('Usuario Creado', usuario.email, 'success' );
       
       this.guardarStorage(resp.id, resp.token, resp.usuario);
 
@@ -81,7 +82,7 @@ export class UsuarioService {
       else{
         localStorage.removeItem('email');
       }
-      swal('Hola!', `Bienvenido ${resp.usuario.nombre}`, 'success' );
+      this.sa.displayMixin('success', `Bienvenido ${resp.usuario.nombre}`);
       return true;
     }))
 
@@ -92,9 +93,8 @@ export class UsuarioService {
     let url = URL_SERVICIOS + "/usuario"
     
     return this.http.post(url,usuario).pipe(map( (resp:any)=>{
-      swal('Usuario Creado', usuario.email, 'success' );
-      //return resp.usuario;
-    }))
+      this.sa.swal('Usuario Creado', `usuario.email`, 'success');
+    }));
 
   }
 
@@ -109,9 +109,7 @@ export class UsuarioService {
         this.guardarStorage(resp.usuario._id, this.token, resp.usuario);
       }
       
-
-
-      swal('Exito!', `Usuario ${resp.usuario.nombre} actualizado correctamente`, 'success' );
+      this.sa.swal('Exito', `Usuario ${resp.usuario.nombre} actualizado correctamente`, 'success');
       return true;
     }));
 
@@ -124,7 +122,7 @@ export class UsuarioService {
       console.log(resp);
       this.usuario.img = resp.usuario.img;
       this.guardarStorage(id, this.token , this.usuario);
-      swal('Exito!', `La imagen se actualizo correctamente`, 'success' );
+      this.sa.swal('Exito', `La imagen se actualizo correctamente`, 'success');
     });
 
   }
@@ -150,7 +148,7 @@ export class UsuarioService {
     url+= "?token="+ this.token;
 
     return this.http.delete(url).pipe(map( (resp:any)=>{
-      swal('Exito!', `TODO SALIO BIEN`, 'success' );
+      this.sa.swal('Exito', `Usuario Eliminado`, 'success');
       return true;
     }));
   }

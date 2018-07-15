@@ -16,13 +16,14 @@ export class ImagenPipe implements PipeTransform {
       return img;
     }
 
+    //console.log("pipe: ",tipo);
     switch( tipo ){
       case 'usuario':
-        return url + '/usuarios/'+ img;
+        return url += '/usuarios/'+ img;
       case 'medico':
-        return url + '/usuarios/'+ img;
+        return url += '/medicos/'+ img;
       case 'hospital':
-        return url + '/usuarios/'+ img;
+        return url += '/hospitales/'+ img;
 
       default:
         return url + '/usuarios/noImage'

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SubirArchivoService } from '../../../../services/service.index';
+import { SubirArchivoService, SweetalertService } from '../../../../services/service.index';
 import { ModalUploadService } from './modal-upload.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class ModalUploadComponent implements OnInit {
   imagenSubir: File;
   imagenTemp: string;
 
-  constructor( private subirarchivoservice: SubirArchivoService , public modaluploadservice:ModalUploadService) { }
+  constructor( private subirarchivoservice: SubirArchivoService , public modaluploadservice:ModalUploadService, private sa:SweetalertService) { }
 
   ngOnInit() {
   }
@@ -27,7 +27,7 @@ export class ModalUploadComponent implements OnInit {
 
     if(archivo.type.indexOf('image') < 0)
     {
-      swal('Error!', `El archivo seleccionado no es una imagen`, 'error' );
+      this.sa.swal('Error!', `El archivo seleccionado no es una imagen`, 'error' );
       this.imagenSubir = null;
       return;
     }
@@ -42,7 +42,7 @@ export class ModalUploadComponent implements OnInit {
 
   subirImagen(){
     this.subirarchivoservice.subirArchivo(this.imagenSubir, this.modaluploadservice.tipo, this.modaluploadservice.id).subscribe(resp=>{
-      console.log(resp);
+      //console.log(resp);
       this.modaluploadservice.notificacion.emit(resp);
       this.cerrarModal();
     });

@@ -15,7 +15,7 @@ export class SidebarService {
         {titulo: 'Graficas', url: '/graficas1'},
         {titulo: 'Promesas', url: '/promesas'},
         {titulo: 'RxJS', url: '/rxjs'},
-        {titulo: 'REST Index', url: '/restindex'},
+        
       ],
       
     },
@@ -26,6 +26,15 @@ export class SidebarService {
         {titulo: 'Usuarios', url: '/usuarios'},
         {titulo: 'Hospitales', url: '/hospitales'},
         {titulo: 'Medicos', url: '/medicos'},
+      ],
+      
+    },
+    {
+      titulo:'Custom',
+      icono: 'mdi mdi-anchor',
+      submenu: [
+        {titulo: 'REST Index', url: '/restindex'},
+        {titulo: 'Permisos', url: '/permisos'},
         
       ],
       

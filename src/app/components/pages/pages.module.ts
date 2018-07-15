@@ -21,6 +21,10 @@ import { RestindexComponent } from './restindex/restindex.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { ModalUploadComponent } from '../shared/custom/modal-upload/modal-upload.component';
+import { HospitalComponent } from './hospital/hospital.component';
+import { MedicosComponent } from './medicos/medicos.component';
+import { PermisosComponent } from './permisos/permisos.component';
+import { MedicoComponent } from './medicos/medico.component';
 
 
 
@@ -38,7 +42,11 @@ import { ModalUploadComponent } from '../shared/custom/modal-upload/modal-upload
         RestindexComponent,
         ProfileComponent,
         UsuariosComponent,
-        ModalUploadComponent
+        ModalUploadComponent,
+        HospitalComponent,
+        MedicosComponent,
+        MedicoComponent,
+        PermisosComponent
     ],
     imports: [ 
         CommonModule,

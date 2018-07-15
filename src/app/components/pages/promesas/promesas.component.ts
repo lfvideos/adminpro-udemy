@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { SweetalertService } from '../../../services/service.index';
+
 @Component({
   selector: 'app-promesas',
   templateUrl: './promesas.component.html',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PromesasComponent implements OnInit {
 
-  constructor() {
+  constructor(private sa:SweetalertService) {
 
     this.contarTres().then( (mensaje)=> console.log('termino',mensaje) ).catch( (error) => console.error('Error en la promesa', error));
 
@@ -38,5 +40,27 @@ export class PromesasComponent implements OnInit {
     return promesa;
 
   }
+
+
+
+
+  testMixin(){
+
+    this.sa.displayMixin('success',"Iniciaste Sesion");
+
+    // const toast = (swal as any).mixin({
+    //   toast: true,
+    //   position: 'top-end',
+    //   showConfirmButton: false,
+    //   timer: 3000
+    // });
+
+    // toast({
+    //   type: 'success',
+    //   title: 'Signed in successfully'
+    // });
+  }
+  
+
 
 }

@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-6">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="box-title m-b-0">Permisos Disponibles</h3>
+                    <div class="list-group">
+                        <a (click)="agregarPermiso(permiso)" *ngFor="let permiso of Disponibles" class="list-group-item list-group-item-action">{{permiso}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="col-2">
+        <button type="button" class="btn btn-primary"><i class="fa fa-plus"></i></button>
+        <button type="button" class="btn btn-primary"><i class="fa fa-minus"></i></button>
+    </div> -->
+    <div class="col-6">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="box-title m-b-0">Permisos Asignados</h3>
+                    <a (click)="quitarPermiso(permiso)" *ngFor="let permiso of Asignados" class="list-group-item list-group-item-action">{{permiso}}</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<button (click)=" guardar() " type="button" class="btn btn-primary">Guardar</button>

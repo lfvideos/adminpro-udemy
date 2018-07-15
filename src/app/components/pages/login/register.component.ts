@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-import swal from 'sweetalert';
 
-import { UsuarioService } from '../../../services/service.index';
+import { UsuarioService, SweetalertService } from '../../../services/service.index';
 import { Usuario } from '../../../models/usuario.model';
 import { Router } from '@angular/router';
 
@@ -19,7 +18,7 @@ export class RegisterComponent implements OnInit {
   forma: FormGroup;
 
 
-  constructor( public usuarioService:UsuarioService , public router: Router ) { }
+  constructor( public usuarioService:UsuarioService , public router: Router , public sa:SweetalertService ) { }
 
   ngOnInit() {
     init_plugins();
@@ -68,7 +67,7 @@ export class RegisterComponent implements OnInit {
 
     if(!this.forma.value.condiciones){
       //console.log("Debe aceptar las condiciones");
-      swal("Importante", "Debe de aceptar las condiciones", "warning");
+      this.sa.swal("Importante", "Debe de aceptar las condiciones", "warning");
       return;
     }
 
@@ -77,7 +76,7 @@ export class RegisterComponent implements OnInit {
       console.log(respuesta);
       this.router.navigate(['/login']);
     }, (error)=>{
-      swal("Error", error.error.mensaje, "error");
+      this.sa.swal("Error", error.error.mensaje, "error");
       console.log(error);
     });
 

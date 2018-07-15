@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../../models/usuario.model';
-import { UsuarioService } from '../../../services/service.index';
+import { UsuarioService, SweetalertService } from '../../../services/service.index';
 import { ModalUploadService } from '../../shared/custom/modal-upload/modal-upload.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class UsuariosComponent implements OnInit {
   totalRegistros:number = 0;
   cargando:boolean = true;
 
-  constructor( public usuariosservice:UsuarioService , public modaluploadservice:ModalUploadService) { }
+  constructor( public usuariosservice:UsuarioService , public modaluploadservice:ModalUploadService , public sa:SweetalertService) { }
 
   ngOnInit() {
     this.cargarUsuarios();
@@ -66,16 +66,15 @@ export class UsuariosComponent implements OnInit {
 
   borrarUsuario(usuario:Usuario){
     if(usuario._id === this.usuariosservice.usuario._id){
-      swal("no se puede borrar el usuario", "No se puede borrar a si mismo", "error");
+      this.sa.swal("no se puede borrar el usuario", "No se puede borrar a si mismo", "error");
       return;
     }
 
-    swal({
+    this.sa.swal({
       title: "Estas seguro?",
       text: "Estas apunto de borrar a " + usuario.nombre,
-      icon: "warning",
-      buttons: ['Cancelar', 'Aceptar'],
-      dangerMode: true,
+      confirmButtonText: "Continuar",
+      cancelButtonText: "Cancelar",
     })
     .then((borrar) => {
       if (borrar) {
